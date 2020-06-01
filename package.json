@@ -1,0 +1,40 @@
+{
+  "name": "discordbot",
+  "version": "1.0.0",
+  "description": "a simple discord bot using nodejs",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonaldJennings/Discord-Bot-JavaScript.git"
+  },
+  "keywords": [
+    "Bot",
+    "JavaScript",
+    "DiscordAPI",
+    "DiscordJS"
+  ],
+  "author": "Donald Jennings",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DonaldJennings/Discord-Bot-JavaScript/issues"
+  },
+  "homepage": "https://github.com/DonaldJennings/Discord-Bot-JavaScript#readme",
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "canvas": "^2.6.1",
+    "discord": "^0.8.2",
+    "discord-player": "^1.4.1",
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
+    "dotenv-flow": "^3.1.0",
+    "fs": "0.0.1-security",
+    "js": "^0.1.0",
+    "node-pre-gyp": "^0.14.0",
+    "sequelize": "^5.21.11",
+    "sqlite3": "^4.2.0"
+  }
+}
