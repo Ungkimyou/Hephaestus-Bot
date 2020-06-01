@@ -84,7 +84,7 @@ module.exports = {
 
 Adding Hephaestus to your own bot is simple. For privacy and security reasons, I have not uploaded the `config.json` file along with some other files. 
 Simply create a `config.json` and structure it as follows
-```
+```json
 {
  token: "YOUR BOT TOKEN",
  prefix: "YOUR DESIRED PREFIX",
