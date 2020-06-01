@@ -1,10 +1,10 @@
-# Hephaestus Bot
+#🔥 Hephaestus Bot 🔥
 
 > Hephaestus is a newly developed bot for Discord made using the discordJS Library. This is my first bot I have developed so some of the code could be optimised and improved upon.
 
 ![](images/logo.jpg)
  
-## Music Player
+## Music Player 🎼
 The music playing functionality for Hephaestus requires an interaction between your client and the YoutubeAPI. This is so the bot can get information on specific videos and play them successfully
 
 The implementation of the music player was made possible by the [discord-player](https://github.com/Androz2091/discord-player) library provided by GitHub user @Androz2091. Full credit for the functionality of the discord-player module goes to them. Go check out their library.
