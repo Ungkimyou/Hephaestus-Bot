@@ -28,12 +28,12 @@ As you can see from the directory, their is the main `bot.js` file accompanied b
 The command handler then proceeds on to use a try/catch statement in order to attempt the execution whilst providing informative error handling to the Terminal and End User upon an error
 
 ```javascript
-107- try {
-108-     command.execute(message, args);
-109- } catch (error) {
-110-    console.error(error);
-111-    message.reply('there was an error trying to execute that command!');
-112- }
+107 - try {
+108 -     command.execute(message, args);
+109 - } catch (error) {
+110 -    console.error(error);
+111 -    message.reply('there was an error trying to execute that command!');
+112 - }
 ```
 ## Release History
 
