@@ -1,15 +1,15 @@
-# Hephaestus Bot
+# 🔥 Hephaestus Bot 🔥
 
 > Hephaestus is a newly developed bot for Discord made using the discordJS Library. This is my first bot I have developed so some of the code could be optimised and improved upon.
 
 ![](images/logo.jpg)
  
-## Music Player
+## Music Player 🎼
 The music playing functionality for Hephaestus requires an interaction between your client and the YoutubeAPI. This is so the bot can get information on specific videos and play them successfully
 
 The implementation of the music player was made possible by the [discord-player](https://github.com/Androz2091/discord-player) library provided by GitHub user @Androz2091. Full credit for the functionality of the discord-player module goes to them. Go check out their library.
 
-## Moderation
+## Moderation 🔨
 This bot has some moderation features. With time will come further updates expanding Hephaestus' capabilities in managing your Discord Server but right now, Hephaestus, has support for kicking and banning aswell as role management.
 
 ## Dynamic Implementation of Commands
@@ -35,14 +35,14 @@ The command handler then proceeds on to use a try/catch statement in order to at
 111 -    message.reply('there was an error trying to execute that command!');
 112 - }
 ```
-## Release History
+## Release History ⌚
 
 * 1.0
    * RELEASED: Music Player and Basic Moderation
 * 1.1
    * PLANNED UPDATE: Further moderation commands
 
-## Meta
+## Information on Dev
 Donald Jennings - [@donald_jenningz](https://twitter.com/donald_jenningz) - donald.jennings2020@gmail.com
 
 [https://github.com/DonaldJennings/Hephaestus-Bot](https://github.com/DonaldJennings)
