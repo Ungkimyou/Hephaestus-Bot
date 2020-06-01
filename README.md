@@ -51,7 +51,7 @@ Simply create a new file in the format `YOUR_COMMAND.js` under the `commands` di
  ```javascript
 module.exports = {
     name: STRING '', 
-    description: STRING 'Leaves the current voice channel', 
+    description: STRING, 
     aliases: ARRAY [],
     cooldown: INT, 
     usage: <prefix><command name><args>,
