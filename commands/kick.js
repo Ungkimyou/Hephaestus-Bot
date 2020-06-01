@@ -7,7 +7,7 @@ module.exports = {
     aliases: ['kick'],
     async execute(message, args) {
         if (message.member.hasPermission('KICK_MEMBERS')) {
-            const member = args[0];
+            const member = message.mentions.members.first();
             member.kick();
         } else {
             message.reply('You do not have permission to kick')

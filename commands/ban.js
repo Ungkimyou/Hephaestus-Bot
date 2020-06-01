@@ -7,7 +7,7 @@ module.exports = {
     aliases: ['ban'],
     async execute(message, args) {
         if (message.member.hasPermission('BAN_MEMBERS')) {
-            const member = args[0];
+            const member = message.mentions.members.first();
             message.guild.members.ban(member);
         } else {
             message.reply('You do not have permission to ban')

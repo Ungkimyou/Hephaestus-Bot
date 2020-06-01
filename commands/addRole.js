@@ -7,9 +7,12 @@ module.exports = {
     aliases: ['addrole'],
     async execute(message, args) {
         if (message.member.hasPermission('MANAGE_ROLES')) {
-            const role = guild.roles.cache.find(role => role.name === args[1]);
-            const member = args[0];
-            member.roles.add(role);
+            var mentionedRole = message.mentions.roles.first();
+            var roleMember = message.mentions.members.first();
+            if (!mentionedRole) return message.reply(`I am unable to find role: ${mentionedRole}`);
+
+
+            roleMember.roles.add(mentionedRole).then(message.channel.send("Role successfully added.")).catch(console.error);
         } else {
             message.reply('You do not have permission to do this')
         }
