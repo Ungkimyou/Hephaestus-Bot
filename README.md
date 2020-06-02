@@ -2,7 +2,8 @@
 
 > Hephaestus is a newly developed bot for Discord made using the discordJS Library. This is my first bot I have developed so some of the code could be optimised and improved upon.
 
-![](images/logo.jpg)
+![](images/logo.jpg) 
+[Artwork credit to Luisagiliberti on DeviantArt](https://www.deviantart.com/luisagiliberti)
  
 ## Music Player 🎼
 The music playing functionality for Hephaestus requires an interaction between your client and the YoutubeAPI. This is so the bot can get information on specific videos and play them successfully
@@ -42,6 +43,54 @@ The command handler then proceeds on to use a try/catch statement in order to at
 * 1.1
    * PLANNED UPDATE: Further moderation commands
 
+## Adding more commands
+Before adding more commands, I recommend you read through the [DiscordJS Documentation](https://discord.js.org/#/docs/main/stable/general/welcome) and the [DiscordJS Dev Guide](https://discordjs.guide/#before-you-begin).
+
+The Dynamic Command handler on Hephaestus means that the implementation and addition of new commands is automatic and simple. 
+Simply create a new file in the format `YOUR_COMMAND.js` under the `commands` directory. The JavaScript file needs to be layed out as follows 
+ ```javascript
+module.exports = {
+    name: STRING '', 
+    description: STRING, 
+    aliases: ARRAY [],
+    cooldown: INT, 
+    usage: <prefix><command name><args>,
+    execute(message, args) { 
+        //Code for the actual command
+    }
+};
+```
+
+Once you have created the js file as shown above you can start developing your desired command. 
+Below is a fully worked example using the above template for the `d!ping` command.
+
+```javascript
+const Discord = require('discord.js');
+var maintenance = false;
+module.exports = {
+    name: 'ping',
+    description: 'Ping!',
+    aliases: ['pi'],
+    execute(message, args) {
+        message.channel.send("Pinging...") //Placeholder for ping
+            .then((msg) => {
+                msg.edit("Ping: " + (Date.now() - msg.createdTimestamp))
+            });
+    }
+};
+```
+
+## Adding Hephaestus to your bot
+
+Adding Hephaestus to your own bot is simple. For privacy and security reasons, I have not uploaded the `config.json` file along with some other files. 
+Simply create a `config.json` and structure it as follows
+```json
+{
+ token: "YOUR BOT TOKEN",
+ prefix: "YOUR DESIRED PREFIX",
+ youtubeKey: "YOUR YOUTUBE API APPLICATION KEY",
+}
+```
 ## Information on Dev
 Donald Jennings - [@donald_jenningz](https://twitter.com/donald_jenningz) - donald.jennings2020@gmail.com
 
