@@ -2,7 +2,7 @@
 //GLOBAL VARIABLES
 const fs = require('fs');
 const Discord = require('discord.js');
-const { token, youtubeKey , prefix } = require('./config.json');
+const { token, youtubeKey, prefix } = require('./config.json');
 const Canvas = require('canvas');
 const client = new Discord.Client();
 const { Users, CurrencyShop } = require('./dbObjects');
@@ -46,6 +46,32 @@ for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     client.commands.set(command.name, command);
 }
+
+//Function to load commands 
+function load_command_from_directory(command_category) {
+    fs.readdir(`./commands/${command_category}`, (err, files) => {
+        if (err) return console.error(err);
+        files.forEach(file => {
+            if (!file.endsWith('.js')) return;
+            let adminCommands = require(`./commands/${command_category}/${file}`);
+            console.log(`ATTEMPTING TO LOAD: ${adminCommands.name} `);
+            client.commands.set(adminCommands.name, adminCommands);
+        });
+    });
+}
+
+var command_categories = {
+    music: "Music",
+    admin: "Admin",
+    moderation: "Moderation",
+    general: "General",
+}
+
+for (var command in command_categories) {
+    var value = command_categories[command];
+    load_command_from_directory(value)
+}
+   
 
 //Upon successful compile
 client.once('ready', async () => {
@@ -173,7 +199,7 @@ client.on('guildMemberAdd', async member => {
     let role = message.guild.roles.find(r => r.name === "Private Channels");
 
 
-    member.addRole(role).catch(console.error);
+    member.roles.add(role).catch(console.error);
 });
 
 
