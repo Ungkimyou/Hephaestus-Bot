@@ -1,20 +1,21 @@
 
 //GLOBAL VARIABLES
+
+const Client = require('./struct/Client');
+const client = new Client({ token: process.env.TOKEN, prefix: process.env.PREFIX });
+
 const fs = require('fs');
 const Discord = require('discord.js');
-const { token, youtubeKey, prefix } = require('./config.json');
 const Canvas = require('canvas');
-const client = new Discord.Client();
+
 const { Users, CurrencyShop } = require('./dbObjects');
 const { Op } = require('sequelize');
 const currency = new Discord.Collection();
-client.commands = new Discord.Collection();
-const { Player } = require('discord-player', youtubeKey);
-const player = new Player(client, youtubeKey);
-client.player = player;
+
+
+
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const cooldowns = new Discord.Collection();
-process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
 
 
 //Fetches secret info from the environment variable
@@ -47,14 +48,14 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
-//Function to load commands 
+//Function to load commands
 function load_command_from_directory(command_category) {
     fs.readdir(`./commands/${command_category}`, (err, files) => {
         if (err) return console.error(err);
         files.forEach(file => {
             if (!file.endsWith('.js')) return;
             let adminCommands = require(`./commands/${command_category}/${file}`);
-            console.log(`ATTEMPTING TO LOAD: ${adminCommands.name} `);
+            //console.log(`ATTEMPTING TO LOAD: ${adminCommands.name} `);
             client.commands.set(adminCommands.name, adminCommands);
         });
     });
@@ -67,6 +68,7 @@ var command_categories = {
     general: "General",
 }
 
+//Iterates through 
 for (var command in command_categories) {
     var value = command_categories[command];
     load_command_from_directory(value)
@@ -78,7 +80,7 @@ client.once('ready', async () => {
     const storedBalances = await Users.findAll();
     storedBalances.forEach(b => currency.set(b.user_id, b));
     console.log(`Signed in as: ${client.user.tag}`);
-    console.log(`Prefix: ${prefix}`);
+    console.log(`client.config.prefix: ${client.config.prefix}`);
 });
 
 
@@ -86,25 +88,21 @@ client.once('ready', async () => {
 client.on('message', async message => {
 
 
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
+    if (!message.content.startsWith(client.config.prefix) || message.author.bot) return;
 
-    const args = message.content.slice(prefix.length).split(' ');
+    const args = message.content.slice(client.config.prefix.length).split(' ');
     const commandName = args.shift().toLowerCase();
 
     const command = client.commands.get(commandName)
         || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-    if (!command) return;
-
-    if (command.guildOnly && message.channel.type !== 'text') {
-        return message.reply('I can\'t execute that command inside DMs!');
-    }
+    if (!command);
 
     if (command.args && !args.length) {
         let reply = `You didn't provide any arguments, ${message.author}!`;
 
         if (command.usage) {
-            reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+            reply += `\nThe proper usage would be: \`${client.config.prefix}${command.name} ${command.usage}\``;
         }
 
         return message.channel.send(reply);
@@ -197,13 +195,13 @@ client.on('guildMemberAdd', async member => {
 
 
     let role = message.guild.roles.find(r => r.name === "Private Channels");
-
+    console.log(`Role to be given: ${role}`);
 
     member.roles.add(role).catch(console.error);
 });
 
 
-client.login(token);
+client.login(client.config.token);
 
 
 exports.client = client;

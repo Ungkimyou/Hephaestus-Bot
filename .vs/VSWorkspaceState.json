@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\commands"
+    "\\struct"
   ],
-  "SelectedNode": "\\commands\\ping.js",
+  "SelectedNode": "\\bot.js",
   "PreviewInSolutionExplorer": false
 }

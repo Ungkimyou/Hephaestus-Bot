@@ -1,12 +1,10 @@
-const Discord = require('discord.js');
-var maintenance = false;
-const parent = require('../../bot.js')
 module.exports = {
-    name: 'nowplaying',
-    description: 'Stops the music player',
-    aliases: ['np'],
-    async execute(message, args) {
-        let song = await parent.client.player.nowPlaying(message.guild.id);
-        message.channel.send(`Currently playing ${song.name}...`);
-    }
+	name: 'np',
+	description: 'Now playing command.',
+	cooldown: 5,
+	execute(message) {
+		const serverQueue = message.client.queue.get(message.guild.id);
+		if (!serverQueue) return message.channel.send('There is nothing playing.');
+		return message.channel.send(`🎶 Now playing: **${serverQueue.songs[0].title}**`);
+	}
 };

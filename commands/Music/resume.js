@@ -1,12 +1,14 @@
-const Discord = require('discord.js');
-var maintenance = false;
-const parent = require('../../bot.js')
 module.exports = {
-    name: 'resume',
-    description: 'Resumes the paused song',
-    aliases: ['res'],
-    async execute(message, args) {
-        let song = await parent.client.player.resume(message.guild.id);
-        message.channel.send(`${song.name} resumed!`);
-    }
+	name: 'resume',
+	description: 'Resume command.',
+	cooldown: 5,
+	execute(message) {
+		const serverQueue = message.client.queue.get(message.guild.id);
+		if (serverQueue && !serverQueue.playing) {
+			serverQueue.playing = true;
+			serverQueue.connection.dispatcher.resume();
+			return message.channel.send('▶ Resumed the music for you!');
+		}
+		return message.channel.send('There is nothing playing.');
+	}
 };

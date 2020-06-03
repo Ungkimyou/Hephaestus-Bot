@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const parent = require('../../bot.js');
-const { prefix } = require('../../config.json');
+const { prefix, ownerID } = require('../../config.json');
 var maintenance = false;
 module.exports = {
     name: 'admin-member-add',
