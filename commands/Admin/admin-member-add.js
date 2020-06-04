@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const parent = require('../../bot.js');
-const { prefix, ownerID } = require('../../config.json');
 var maintenance = false;
 module.exports = {
     name: 'admin-member-add',
@@ -16,7 +15,6 @@ module.exports = {
             }
         } else {
             message.reply("You're not the owner you dimwit.")
-            console.log(`Message Author ID: ${message.author.id}. ownerID: ${ownerID}`);
         }
         
     }

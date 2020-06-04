@@ -1,46 +1,17 @@
 
-//GLOBAL VARIABLES
-
-const Client = require('./struct/Client');
-const client = new Client({ token: process.env.TOKEN, prefix: process.env.PREFIX });
-
-const fs = require('fs');
+//PACKAGES
 const Discord = require('discord.js');
 const Canvas = require('canvas');
-
-const { Users, CurrencyShop } = require('./dbObjects');
-const { Op } = require('sequelize');
-const currency = new Discord.Collection();
-
-
-
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-const cooldowns = new Discord.Collection();
-
+const fs = require('fs');
 
 //Fetches secret info from the environment variable
 require('dotenv-flow').config();
 
-//Defines functions which help with the running of the currency system
-Reflect.defineProperty(currency, 'add', {
-    value: async function add(id, amount) {
-        const user = currency.get(id);
-        if (user) {
-            user.balance += Number(amount);
-            return user.save();
-        }
-        const newUser = await Users.create({ user_id: id, balance: amount });
-        currency.set(id, newUser);
-        return newUser;
-    },
-});
-
-Reflect.defineProperty(currency, 'getBalance', {
-    value: function getBalance(id) {
-        const user = currency.get(id);
-        return user ? user.balance : 0;
-    },
-});
+//Global Variables
+const Client = require('./struct/Client');
+const client = new Client({ token: process.env.TOKEN, prefix: process.env.PREFIX, youtubeKey: process.env.YOUTUBE_KEY });
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const cooldowns = new Discord.Collection();
 
 //Stores all the command js files into a map of the commands under the client object
 for (const file of commandFiles) {
@@ -49,7 +20,7 @@ for (const file of commandFiles) {
 }
 
 //Function to load commands
-function load_command_from_directory(command_category) {
+async function load_command_from_directory(command_category) {
     fs.readdir(`./commands/${command_category}`, (err, files) => {
         if (err) return console.error(err);
         files.forEach(file => {
@@ -61,6 +32,7 @@ function load_command_from_directory(command_category) {
     });
 }
 
+//Dict storing command categories as defined in the sub-directories of the commands folder
 var command_categories = {
     music: "Music",
     admin: "Admin",
@@ -77,27 +49,30 @@ for (var command in command_categories) {
 
 //Upon successful compile
 client.once('ready', async () => {
-    const storedBalances = await Users.findAll();
-    storedBalances.forEach(b => currency.set(b.user_id, b));
     console.log(`Signed in as: ${client.user.tag}`);
     console.log(`client.config.prefix: ${client.config.prefix}`);
+    //console.log(client.commands)
 });
 
 
 //When a message has beens sent into a channel
 client.on('message', async message => {
 
-
+    //If message doesnt start with prefix or is a bot message
     if (!message.content.startsWith(client.config.prefix) || message.author.bot) return;
 
+    //Splits args and command
     const args = message.content.slice(client.config.prefix.length).split(' ');
     const commandName = args.shift().toLowerCase();
 
+    //Stores command from the commands folder
     const command = client.commands.get(commandName)
         || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-    if (!command);
+    //If command doesnt exist then returns
+    if (!command) return;
 
+    //Checks if args were entered
     if (command.args && !args.length) {
         let reply = `You didn't provide any arguments, ${message.author}!`;
 
@@ -108,9 +83,12 @@ client.on('message', async message => {
         return message.channel.send(reply);
     }
 
+
+    //Cooldowns
     if (!cooldowns.has(command.name)) {
         cooldowns.set(command.name, new Discord.Collection());
     }
+
 
     const now = Date.now();
     const timestamps = cooldowns.get(command.name);
@@ -128,6 +106,8 @@ client.on('message', async message => {
     timestamps.set(message.author.id, now);
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
+
+    //Attempts the execution of the command and catches any runtime errors.
     try {
         command.execute(message, args);
     } catch (error) {
