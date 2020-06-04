@@ -13,10 +13,6 @@ module.exports = {
     async execute(message, args) {
 
 
-
-        //Defines the requested song based on the args
-        req_song = args.join(" ");
-
         //Permissions and checks
         const { channel } = message.member.voice;
         if (!channel) return message.channel.send('I\'m sorry but you need to be in a voice channel to play music!');
@@ -24,8 +20,13 @@ module.exports = {
         if (!permissions.has('CONNECT')) return message.channel.send('I cannot connect to your voice channel, make sure I have the proper permissions!');
         if (!permissions.has('SPEAK')) return message.channel.send('I cannot speak in this voice channel, make sure I have the proper permissions!');
 
-        async function play(song) {
+        //Defines the requested song based on the args
+        req_song = args.join(" ");
+        urlCheck = new RegExp('^https')
 
+        
+        async function play(song) {
+        
             
             //Creates server queue
             const serverQueue = message.client.queue.get(message.guild.id);
@@ -59,7 +60,7 @@ module.exports = {
                 }
 
                 //Streams the song
-                const dispatcher = queue.connection.play(ytdl('http://www.youtube.com/watch?v=' + song.id))
+                const dispatcher = queue.connection.play(ytdl(song.url))
 
                     //Once completed it moves the queue array
                     .on('finish', () => {
@@ -89,32 +90,77 @@ module.exports = {
 
         };
 
+        async function searchYoutube(song_string) {
 
-        //Searches through the YouTube API for video
-        var youtubeSearch = google.youtube('v3').search.list({
-            key: youtubeAPI,
-            part: "snippet",
-            q: req_song,
-            maxResults: 1,
-            type: "video",
-        }).then((response) => {
+            if (urlCheck.test(song_string)) {
 
-            const { data } = response;
-            data.items.forEach((item) => {
-                console.log(`Song Title: ${item.snippet.title}.`)
-                console.log(`Video ID: ${item.id.videoId}`)
-                //Defines structure of a song.
-                const song = {
-                    id: item.id.videoId,
-                    title: item.snippet.title,
+                console.log("URL")
+                //Searches through the YouTube API for video
+                var youtubeSearch = google.youtube('v3').search.list({
+                    key: youtubeAPI,
+                    part: "snippet",
+                    q: song_string,
+                    maxResults: 1,
+                    type: "video",
+                })
 
-                };
+                    .then((response) => {
 
-                play(song)
+                    const { data } = response;
+                    data.items.forEach((item) => {
+
+                        console.log(`Song Title: ${item.snippet.title}.`)
+                        console.log(`Video URL: ${song_string}`)
+
+                        //Defines structure of a song.
+                        const song = {
+                            title: item.snippet.title,
+                            url: song_string
+                        };
+
+                        play(song)
+
+                    });
+                });
+
+            } else {
+
+                console.log("Title")
+
+                //Searches through the YouTube API for video
+                var youtubeSearch = google.youtube('v3').search.list({
+                    key: youtubeAPI,
+                    part: "snippet",
+                    q: song_string,
+                    maxResults: 1,
+                    type: "video",
+                })
+
+                    .then((response) => {
+
+                        const { data } = response;
+                        data.items.forEach((item) => {
+
+                            console.log(`Song Title: ${item.snippet.title}.`)
+                            console.log(`Video ID: ${item.id.videoId}`)
+
+                            //Defines structure of a song.
+                            const song = {
+                                title: item.snippet.title,
+                                url: "https://www.youtube.com/watch?v="+item.id.videoId,
+                            };
+
+                            play(song)
+
+                        });
+                    });
 
 
+            }
 
-            });
-        })
+        }
+
+        searchYoutube(req_song)
+
     }
 };
