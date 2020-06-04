@@ -8,7 +8,13 @@ module.exports = {
     async execute(message, args) {
         if (message.member.hasPermission('BAN_MEMBERS')) {
             const member = message.mentions.members.first();
-            message.guild.members.ban(member);
+            if (member.id == parent.client.config.botID) {
+                message.reply("I cannot ban myself")
+            } else {
+
+                message.guild.members.ban(member);
+
+            }
         } else {
             message.reply('You do not have permission to ban')
         }

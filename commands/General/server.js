@@ -15,7 +15,7 @@ module.exports = {
         .addField(`**Guild Name**`, `${message.guild.name}`, true)
         .addField(`**Guild Owner**`, `${message.guild.owner}`, true)
         .addField(`**Member Count**`, `${message.guild.memberCount}`, true)
-        .addField(`**Role Count**`, `${message.guild.roles.size}`, true)
+        .addField(`**Highest Role**`, `${message.guild.roles.highest}`, true)
         .addField(`**Region**`, `${message.guild.region}`, true)
         .addField(`**Server Creation**`, `${message.guild.createdAt}`, true)
         .setFooter(`Hephaestus | Footer`, parent.client.user.displayAvatarURL());

@@ -3,13 +3,15 @@ const ytdl = require('ytdl-core');
 const parent = require('../../bot.js')
 const youtubeAPI = parent.client.config.youtubeKey
 const { google } = require('googleapis');
+const getYoutubePlaylistId = require('get-youtube-playlist-id');
 
 module.exports = {
     name: 'play',
     description: 'Play command.',
     usage: '[command name]',
     args: true,
-    cooldown: 5,
+    cooldown: 3,
+    aliases: ['p'],
     async execute(message, args) {
 
 
@@ -22,9 +24,33 @@ module.exports = {
 
         //Defines the requested song based on the args
         req_song = args.join(" ");
-        urlCheck = new RegExp('^https')
+        urlCheck = new RegExp('^https://www.youtube.com/watch')
+        playlistCheck = new RegExp('^https://www.youtube.com/playlist')
 
-        
+        async function playlist_scan(id) {
+            google.youtube('v3').playlistItems.list({
+                key: youtubeAPI,
+                part: "snippet",
+                playlistId: id,
+                maxResults: 100,
+            })
+
+                .then((response) => {
+                    const { data } = response;
+                    data.items.forEach((item) => {
+                        console.log(`Title: ${item.snippet.title}\nVideo: ${item.snippet.resourceId.videoId}.`);
+
+                        const song = {
+                            title: item.snippet.title,
+                            url: "www.youtube.com/watch?v=" + item.snippet.resourceId.videoId,
+                        };
+
+                        play(song)
+                    })
+
+                    
+                })
+        }
         async function play(song) {
         
             
@@ -34,7 +60,7 @@ module.exports = {
             if (serverQueue) {
                 serverQueue.songs.push(song);
                 console.log(serverQueue.songs.title);
-                return message.channel.send(`**${song.title}** has been added to the queue`);
+                return console.log(`**${song.title}** has been added to the queue`);
             }
 
             //Defines the structure for a queue
@@ -159,8 +185,17 @@ module.exports = {
             }
 
         }
+        if (playlistCheck.test(req_song)) {
 
-        searchYoutube(req_song)
+            var id = getYoutubePlaylistId(req_song)
+            playlist_scan(id)
+
+        } else {
+
+            searchYoutube(req_song)
+
+        }
+        
 
     }
 };
