@@ -11,17 +11,27 @@ module.exports = {
 
         function queue_to_text(queue) {
             queueSize = queue.songs.length
+
+            if (queueSize > 10) {
+                max_loop = 11
+            } else {
+                max_loop = queueSize
+            }
+            
+            console.log(queue.songs)
+
             data = new MessageEmbed({type: "rich"})
                 .setTitle(`Music Queue`)
                 .setColor(colours.gold)
                 .setDescription('These are the next 10 songs of the playlist')
                 .setThumbnail(currentGuild.iconURL())
                 .addField(`**NOW PLAYING**`, `${queue.songs[0].title} by ${queue.songs[0].channel}\n---------------------------------------------------`)
-
                 .setFooter(`Powered by Hephaestus Music | ${queueSize-10} songs left`, parent.client.user.displayAvatarURL())
-            for (i = 1; i < 11; i++) {
+
+            for (i = 1; i < max_loop; i++) {
                 currentSong = queue.songs[i]
-                data.addField(`#${i} `,`Song Title: **${currentSong.title}** by **${currentSong.channel}**`)
+                console.log(currentSong)
+                data.addField(`#${i} `, `Song Title: **${currentSong.title}** by **${currentSong.channel}**`)
             }
             return data
         }
