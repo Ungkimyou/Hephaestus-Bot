@@ -9,7 +9,7 @@ require('dotenv-flow').config();
 
 //Global Variables
 const Client = require('./struct/Client');
-const client = new Client({ token: process.env.TOKEN, prefix: process.env.PREFIX, youtubeKey: process.env.MAINTENANCE_KEY , ownerID: process.env.OWNER_ID});
+const client = new Client({ token: process.env.TOKEN, prefix: process.env.PREFIX, youtubeKey: process.env.YOUTUBE_KEY , ownerID: process.env.OWNER_ID});
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const cooldowns = new Discord.Collection();
 
