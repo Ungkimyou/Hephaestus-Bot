@@ -2,9 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\commands",
+    "\\commands\\Admin",
+    "\\commands\\General",
+    "\\commands\\Moderation",
     "\\commands\\Music",
     "\\struct"
   ],
-  "SelectedNode": "\\commands\\Music\\volume.js",
+  "SelectedNode": "\\commands\\Music\\play.js",
   "PreviewInSolutionExplorer": false
 }

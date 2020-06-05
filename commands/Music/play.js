@@ -90,6 +90,7 @@ module.exports = {
 
                     //Once completed it moves the queue array
                     .on('finish', () => {
+                        message.channel.bulkDelete(1)
                         queue.songs.shift();
                         play(queue.songs[0]);
                     })
@@ -97,7 +98,10 @@ module.exports = {
 
                 //Sets logarithmic volume
                 dispatcher.setVolumeLogarithmic(queue.volume / 5);
-                queue.textChannel.send(`🎶 Start playing: **${song.title}**`);
+                queue.textChannel.send(`🎶 Start playing: **${song.title}**`)
+                    .then(msg => {
+                msg.delete(30000)
+            }).catch(err => { console.log(err) });
             };
 
             //Instantiates the queue using the queueConstruct definitons and begins to play songs in the queue
