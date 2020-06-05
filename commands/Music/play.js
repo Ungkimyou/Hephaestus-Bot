@@ -4,6 +4,8 @@ const parent = require('../../bot.js')
 const youtubeAPI = parent.client.config.youtubeKey
 const { google } = require('googleapis');
 const getYoutubePlaylistId = require('get-youtube-playlist-id');
+const Youtube = require('simple-youtube-api');
+const youtube = new Youtube(youtubeAPI);
 
 module.exports = {
     name: 'play',
@@ -24,43 +26,42 @@ module.exports = {
 
         //Defines the requested song based on the args
         req_song = args.join(" ");
+
+        //Regular Expressions to check URL
         urlCheck = new RegExp('^https://www.youtube.com/watch')
         playlistCheck = new RegExp('^https://www.youtube.com/playlist')
 
-        async function playlist_scan(id) {
-            google.youtube('v3').playlistItems.list({
-                key: youtubeAPI,
-                part: "snippet",
-                playlistId: id,
-                maxResults: 100,
-            })
 
-                .then((response) => {
-                    const { data } = response;
-                    data.items.forEach((item) => {
-                        console.log(`Title: ${item.snippet.title}\nVideo: ${item.snippet.resourceId.videoId}.`);
+        async function playlist_scan() {
 
-                        const song = {
-                            title: item.snippet.title,
-                            url: "www.youtube.com/watch?v=" + item.snippet.resourceId.videoId,
-                        };
+            //Gets playlist information based off the URL 
+            youtube.getPlaylist(req_song)
+                .then(playlist => {
+                    playlist.getVideos()
+                        .then(videos => {
+                            videos.forEach((video) => {
+                                const song = {
+                                    title: video.title,
+                                    url: video.url
+                                };
 
-                        play(song)
-                    })
-
-                    
+                                play(song)
+                            })
+                        })
                 })
         }
+
         async function play(song) {
-        
-            
+
+
             //Creates server queue
             const serverQueue = message.client.queue.get(message.guild.id);
-            //If a queue exists
+
+            //If a queue exists then add the song to the end of the queue
             if (serverQueue) {
                 serverQueue.songs.push(song);
-                console.log(serverQueue.songs.title);
-                return console.log(`**${song.title}** has been added to the queue`);
+                console.log(serverQueue.songs);
+                return
             }
 
             //Defines the structure for a queue
@@ -81,6 +82,7 @@ module.exports = {
             const play = async song => {
                 const queue = message.client.queue.get(message.guild.id);
                 if (!song) {
+                    queue.voiceChannel.leave()
                     message.client.queue.delete(message.guild.id);
                     return;
                 }
@@ -90,18 +92,20 @@ module.exports = {
 
                     //Once completed it moves the queue array
                     .on('finish', () => {
-                        message.channel.bulkDelete(1)
                         queue.songs.shift();
                         play(queue.songs[0]);
                     })
-                    .on('error', error => console.error(error));
-
+                    .on('error', error => {
+                        console.log(error)
+                        message.channel.send(error.reason)
+                    });
+                    
                 //Sets logarithmic volume
                 dispatcher.setVolumeLogarithmic(queue.volume / 5);
-                queue.textChannel.send(`🎶 Start playing: **${song.title}**`)
+                message.channel.send(`🎶 Start playing: **${song.title}**`)
                     .then(msg => {
-                msg.delete(30000)
-            }).catch(err => { console.log(err) });
+                        msg.delete({ timeout: 15000 })
+                    }).catch(err => { console.log(err) });
             };
 
             //Instantiates the queue using the queueConstruct definitons and begins to play songs in the queue
@@ -109,7 +113,7 @@ module.exports = {
                 const connection = await channel.join();
                 queueConstruct.connection = connection;
                 play(queueConstruct.songs[0]);
-
+            
             } catch (error) {
                 console.error(`I could not join the voice channel: ${error}`);
                 message.client.queue.delete(message.guild.id);
@@ -125,70 +129,47 @@ module.exports = {
             if (urlCheck.test(song_string)) {
 
                 console.log("URL")
-                //Searches through the YouTube API for video
-                var youtubeSearch = google.youtube('v3').search.list({
-                    key: youtubeAPI,
-                    part: "snippet",
-                    q: song_string,
-                    maxResults: 1,
-                    type: "video",
-                })
+                youtube.getVideo(song_string)
+                    .then(video => {
 
-                    .then((response) => {
-
-                    const { data } = response;
-                    data.items.forEach((item) => {
-
-                        console.log(`Song Title: ${item.snippet.title}.`)
-                        console.log(`Video URL: ${song_string}`)
-
-                        //Defines structure of a song.
                         const song = {
-                            title: item.snippet.title,
-                            url: song_string
+
+                            title: video.title,
+                            url: video.url,
+
                         };
 
-                        play(song)
+                        play(song);
 
-                    });
-                });
+                    })
+
+                    .catch(err => { console.log(err) });
 
             } else {
 
                 console.log("Title")
 
                 //Searches through the YouTube API for video
-                var youtubeSearch = google.youtube('v3').search.list({
-                    key: youtubeAPI,
-                    part: "snippet",
-                    q: song_string,
-                    maxResults: 1,
-                    type: "video",
-                })
 
-                    .then((response) => {
+                youtube.searchVideos(req_song, 1)
+                    .then(results => {
 
-                        const { data } = response;
-                        data.items.forEach((item) => {
+                        result = results[0];
 
-                            console.log(`Song Title: ${item.snippet.title}.`)
-                            console.log(`Video ID: ${item.id.videoId}`)
+                        const song = {
+                            title: result.title,
+                            url: result.url
+                        }
 
-                            //Defines structure of a song.
-                            const song = {
-                                title: item.snippet.title,
-                                url: "https://www.youtube.com/watch?v="+item.id.videoId,
-                            };
+                        play(song)
 
-                            play(song)
-
-                        });
+                    })
+                    .catch(err => {
+                        console.log(err)
                     });
-
-
             }
-
         }
+
         if (playlistCheck.test(req_song)) {
 
             var id = getYoutubePlaylistId(req_song)
@@ -199,7 +180,9 @@ module.exports = {
             searchYoutube(req_song)
 
         }
-        
 
     }
 };
+
+
+
