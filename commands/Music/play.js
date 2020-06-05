@@ -42,7 +42,9 @@ module.exports = {
                             videos.forEach((video) => {
                                 const song = {
                                     title: video.title,
-                                    url: video.url
+                                    url: video.url,
+                                    channel: video.channel.title,
+                                    duration: video.duration
                                 };
 
                                 play(song)
@@ -102,7 +104,7 @@ module.exports = {
                     
                 //Sets logarithmic volume
                 dispatcher.setVolumeLogarithmic(queue.volume / 5);
-                message.channel.send(`🎶 Start playing: **${song.title}**`)
+                message.channel.send(`🎶 Start playing: **${song.title}** by **${song.channel}**`)
                     .then(msg => {
                         msg.delete({ timeout: 15000 })
                     }).catch(err => { console.log(err) });
@@ -136,6 +138,8 @@ module.exports = {
 
                             title: video.title,
                             url: video.url,
+                            channel: video.channel.title,
+                            duration: video.duration
 
                         };
 
@@ -158,7 +162,9 @@ module.exports = {
 
                         const song = {
                             title: result.title,
-                            url: result.url
+                            url: result.url,
+                            channel: result.channel.title,
+                            duration: result.duration
                         }
 
                         play(song)
