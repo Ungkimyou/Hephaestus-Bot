@@ -1,25 +1,35 @@
+const { MessageEmbed } = require('discord.js');
+const colours = require('../../colours.json');
+const parent = require('../../bot.js')
 module.exports = {
 	name: 'queue',
 	description: 'Queue command.',
-    cooldown: 5,
+    cooldown: 3,
     aliases: ['q'],
     execute(message) {
+        currentGuild = message.guild
 
-        function queue_to_text(queue, num_songs) {
-            data = []
-            for (i = 0; i < num_songs; i++) {
+        function queue_to_text(queue) {
+            
+            data = new MessageEmbed({type: "rich"})
+                .setTitle(`Music Queue`)
+                .setColor(colours.gold)
+                .setDescription('These are the next 10 songs of the playlist')
+                .setThumbnail(currentGuild.iconURL())
+                .addField(`**NOW PLAYING**`, `${queue.songs[0].title} by ${queue.songs[0].channel}\n---------------------------------------------------`)
+                                              
+                .setFooter(`Powered by Hephaestus Music`, parent.client.user.displayAvatarURL)
+            for (i = 2; i < 11; i++) {
                 currentSong = queue.songs[i]
-                data.push(`${i} - Song Title: ${currentSong.title} | Uploaded By - ${currentSong.channel} | Duration - ${currentSong.duration}\n`)
+                data.addField(`#${i} `,`Song Title: **${currentSong.title}** by **${currentSong.channel}**`)
             }
-
+                
             return data
         }
 
-		const serverQueue = message.client.queue.get(message.guild.id);
+        const serverQueue = message.client.queue.get(message.guild.id);
         if (!serverQueue) return message.channel.send('There is nothing playing.');
-        queue_list = queue_to_text(serverQueue, 10)
-        message.channel.send(`
-            ${queue_list}
-        `)
+        queue_embed= queue_to_text(serverQueue)
+        message.channel.send(queue_embed)
 	}
 };
