@@ -10,7 +10,7 @@ const youtube = new Youtube(youtubeAPI);
 module.exports = {
     name: 'play',
     description: 'Play command.',
-    usage: '[command name]',
+    usage: '[Video URL | Song Name | PlaylistURL]',
     args: true,
     cooldown: 3,
     aliases: ['p'],
@@ -72,7 +72,7 @@ module.exports = {
                 voiceChannel: channel,
                 connection: null,
                 songs: [],
-                volume: 5,
+                volume: 4,
                 playing: true
             };
 
@@ -100,7 +100,9 @@ module.exports = {
                     .on('error', error => {
                         console.log(error)
                         message.channel.send(error.reason)
-                    });
+                    })
+
+                    
                     
                 //Sets logarithmic volume
                 dispatcher.setVolumeLogarithmic(queue.volume / 5);

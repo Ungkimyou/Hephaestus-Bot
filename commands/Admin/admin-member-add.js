@@ -3,7 +3,7 @@ const parent = require('../../bot.js');
 var maintenance = false;
 module.exports = {
     name: 'admin-member-add',
-    description: 'Mimicks a new member joining. Used for testing the onMemberAdd functions!',
+    description: 'Mimicks a new member joining!',
     execute(message, args) {
         if (message.author.id === ownerID) {
             try {
