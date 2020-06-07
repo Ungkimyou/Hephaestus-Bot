@@ -5,6 +5,31 @@
 ![](images/logo.jpg) 
 [Artwork credit to Luisagiliberti on DeviantArt](https://www.deviantart.com/luisagiliberti)
  
+## Commands List 👾
+
+| Command        |Description           |Usage  |
+| ------------- |:-------------:| -----:|
+| admin-member-add      |Mimicks a member joining |!admin-member-add |
+| help      |Displays help on commands      |!help / !help <command> |
+| join |Joins vc      |!join |
+| leave|Leaves vc |!leave |
+| ping |Gives user ping| !ping|
+| prune|Deletes n most recent messages| !prune <message count>|
+| server|Displays info on server| !server|
+| troll| Spams the user for lols| !troll|
+| addRole| Adds given role to given user| !addRole <mention member><mention role|
+| kick| Kicks mentioned user| !kick <mention member> |
+| ban| Bans mentioned user| !ban <mention member |
+| np| Displays currently playing song| !np |
+| pause| Pauses player| !pause |
+| resume| Resumes player| !resume |
+| play| Plays song| !play <Title/PlaylistURL/VideoURL> |
+| queue| Displays queue| !queue|
+| shuffle| Shuffles the queue| !shuffle|
+| skip | Skips N songs| !skip <song amount>|
+| stop| Stops the player| !stop|
+| volume| Adjusts player volume| !volume <newVolume> |
+ 
 ## Music Player 🎼
 The music playing functionality for Hephaestus requires an interaction between your client and the YoutubeAPI. This is so the bot can get information on specific videos and play them successfully
 
