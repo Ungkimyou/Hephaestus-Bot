@@ -8,22 +8,35 @@
 ## Music Player 🎼
 The music playing functionality for Hephaestus requires an interaction between your client and the YoutubeAPI. This is so the bot can get information on specific videos and play them successfully
 
-The implementation of the music player was made possible by the [discord-player](https://github.com/Androz2091/discord-player) library provided by GitHub user @Androz2091. Full credit for the functionality of the discord-player module goes to them. Go check out their library.
+The implementation of the music features require access to the Youtube Data API V3.
+
+Currently the music player is limited to YouTube songs only since the Spotify API and DiscordJS have conflicts when playing spotify songs by their URL. I may add this functionality later by converting playlists to their youtube equivalents.
 
 ## Moderation 🔨
 This bot has some moderation features. With time will come further updates expanding Hephaestus' capabilities in managing your Discord Server but right now, Hephaestus, has support for kicking and banning aswell as role management.
 
+To use the moderation features you need to __mention__ the user and/or role you wish to operate on
 ## Dynamic Implementation of Commands
 The most useful implementation which I have made with Hephaestus is my dynamic commands and their command handler.
 
-As you can see from the directory, their is the main `bot.js` file accompanied by a `commands folder`. Every Javascript file in the commands folder is a separate command and the main command handler in the `bot.js` file iterates through this folder adding each command and its name to a map within the `client` class.
+As you can see from the directory, their is the main `bot.js` file accompanied by a `commands folder`. Every Javascript file in the commands folder and the subsequent subdirectories are a separate command and the main command handler in the `bot.js` file iterates through these folders adding each command and its name to a map within the `client` class.
 
 ```javascript
 
-45 - for (const file of commandFiles) {
-46 -    const command = require(`./commands/${file}`);
-47 -    client.commands.set(command.name, command);
-48 - }
+//Function to load commands
+async function load_command_from_directory(command_category) {
+    fs.readdir(`./commands/${command_category}`, (err, files) => {
+        if (err) return console.error(err);
+        files.forEach(file => {
+            if (!file.endsWith('.js')) return;
+            let adminCommands = require(`./commands/${command_category}/${file}`);
+            //console.log(`ATTEMPTING TO LOAD: ${adminCommands.name} `);
+            client.commands.set(adminCommands.name, adminCommands);
+        });
+    });
+}
+
+
 ```
 
 The command handler then proceeds on to use a try/catch statement in order to attempt the execution whilst providing informative error handling to the Terminal and End User upon an error
@@ -39,9 +52,11 @@ The command handler then proceeds on to use a try/catch statement in order to at
 ## Release History ⌚
 
 * 1.0
-   * RELEASED: Music Player and Basic Moderation
+   * RELEASED: Music Player BETA and Basic Moderation
 * 1.1
-   * PLANNED UPDATE: Further moderation commands
+   * RELEASED: Full YouTube Music Player
+* 1.2
+   * TBA
 
 ## Adding more commands
 Before adding more commands, I recommend you read through the [DiscordJS Documentation](https://discord.js.org/#/docs/main/stable/general/welcome) and the [DiscordJS Dev Guide](https://discordjs.guide/#before-you-begin).
@@ -56,7 +71,7 @@ module.exports = {
     cooldown: INT, 
     usage: <prefix><command name><args>,
     execute(message, args) { 
-        //Code for the actual command
+        //Code for the command
     }
 };
 ```
@@ -83,13 +98,12 @@ module.exports = {
 ## Adding Hephaestus to your bot
 
 Adding Hephaestus to your own bot is simple. For privacy and security reasons, I have not uploaded the `config.json` file along with some other files. 
-Simply create a `config.json` and structure it as follows
-```json
-{
- token: "YOUR BOT TOKEN",
- prefix: "YOUR DESIRED PREFIX",
- youtubeKey: "YOUR YOUTUBE API APPLICATION KEY",
-}
+Simply create a `.env` and structure it as follows
+```
+TOKEN = YOUR_BOT_TOKEN
+OWNER_ID = YOUR_USER_ID
+PREFIX = COMMAND PREFIX
+YOUTUBE_KEY = YOUTUBE_API_KEY
 ```
 ## Information on Dev
 Donald Jennings - [@donald_jenningz](https://twitter.com/donald_jenningz) - donald.jennings2020@gmail.com
