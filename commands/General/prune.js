@@ -4,7 +4,8 @@ module.exports = {
 	name: 'prune',
     description: 'Deletes N most recent messages',
     cooldown: 5,
-    aliases: ['pr','del'],
+    aliases: ['pr', 'del'],
+    usage: "[Number of Messages]"
 	execute(message, args) {
     const amount = parseInt(args[0]);
 

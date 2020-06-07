@@ -3,7 +3,7 @@ const colours = require('../../colours.json');
 const parent = require('../../bot.js')
 module.exports = {
 	name: 'queue',
-	description: 'Queue command.',
+	description: 'Displays current queue.',
     cooldown: 3,
     aliases: ['q'],
     execute(message) {

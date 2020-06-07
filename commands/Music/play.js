@@ -166,7 +166,6 @@ module.exports = {
                             title: result.title,
                             url: result.url,
                             channel: result.channel.title,
-                            duration: result.duration
                         }
 
                         play(song)

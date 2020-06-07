@@ -1,6 +1,6 @@
 module.exports = {
     name: 'volume',
-    description: 'Volume command.',
+    description: 'Adjusts player volume.',
     cooldown: 5,
     execute(message, args) {
 

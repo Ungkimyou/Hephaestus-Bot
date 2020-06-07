@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 var maintenance = false;
 module.exports = {
     name: 'ping',
-    description: 'Ping!',
+    description: 'Gets User Ping',
     aliases: ['pi'],
     execute(message, args) {
         message.channel.send("Pinging...") //Placeholder for ping

@@ -1,6 +1,6 @@
 module.exports = {
     name: 'skip',
-    description: 'Skip command.',
+    description: 'Skip next N Songs.',
     cooldown: 5,
     execute(message, args) {
 

@@ -10,7 +10,7 @@ module.exports = {
         .setTitle('Server Information')
         .setThumbnail(message.guild.iconURL())
         .setDescription(`Information on ${message.guild.name}`)
-        .setColor(colours.cyan)
+        .setColor(colours.gold)
         .setAuthor(`${message.guild.name} Info`, message.guild.iconURL())
         .addField(`**Guild Name**`, `${message.guild.name}`, true)
         .addField(`**Guild Owner**`, `${message.guild.owner}`, true)
