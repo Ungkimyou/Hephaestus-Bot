@@ -14,8 +14,12 @@ module.exports = {
 
             if (queueSize > 10) {
                 max_loop = 11
+                songsLeft = queueSize - 10
+                numberUpcoming = 10
             } else {
                 max_loop = queueSize
+                songsLeft = queueSize - 1
+                numberUpcoming = queueSize
             }
             
             console.log(queue.songs)
@@ -23,10 +27,10 @@ module.exports = {
             data = new MessageEmbed({type: "rich"})
                 .setTitle(`Music Queue`)
                 .setColor(colours.gold)
-                .setDescription('These are the next 10 songs of the playlist')
+                .setDescription(`These are the next  songs of the playlist`)
                 .setThumbnail(currentGuild.iconURL())
                 .addField(`**NOW PLAYING**`, `${queue.songs[0].title} by ${queue.songs[0].channel}\n---------------------------------------------------`)
-                .setFooter(`Powered by Hephaestus Music | ${queueSize-10} songs left`, parent.client.user.displayAvatarURL())
+                .setFooter(`Powered by Hephaestus Music | ${songsLeft} songs left`, parent.client.user.displayAvatarURL())
 
             for (i = 1; i < max_loop; i++) {
                 currentSong = queue.songs[i]

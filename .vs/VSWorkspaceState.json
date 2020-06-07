@@ -1,13 +1,7 @@
 {
   "ExpandedNodes": [
     "",
-    "\\commands",
-    "\\commands\\Admin",
-    "\\commands\\General",
-    "\\commands\\Moderation",
-    "\\commands\\Music",
-    "\\struct"
+    "\\commands"
   ],
-  "SelectedNode": "\\bot.js",
   "PreviewInSolutionExplorer": false
 }
