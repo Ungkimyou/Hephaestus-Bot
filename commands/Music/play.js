@@ -9,7 +9,7 @@ const youtube = new Youtube(youtubeAPI);
 
 module.exports = {
     name: 'play',
-    description: 'Play command.',
+    description: 'Plays / Queues a new song',
     usage: '[Video URL | Song Name | PlaylistURL]',
     args: true,
     cooldown: 3,

@@ -1,7 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\commands"
+    "\\commands",
+    "\\commands\\Admin",
+    "\\commands\\General",
+    "\\commands\\Moderation",
+    "\\commands\\Music",
+    "\\struct"
   ],
+  "SelectedNode": "\\commands\\General\\server.js",
   "PreviewInSolutionExplorer": false
 }

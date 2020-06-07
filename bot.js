@@ -18,7 +18,6 @@ for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     client.commands.set(command.name, command);
 }
-
 //Function to load commands
 async function load_command_from_directory(command_category) {
     fs.readdir(`./commands/${command_category}`, (err, files) => {

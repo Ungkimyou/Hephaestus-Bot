@@ -4,7 +4,7 @@ var maintenance = false;
 module.exports = {
     name: 'admin-member-add',
     description: 'Mimicks a new member joining!',
-    aliases: ['userAdd']
+    aliases: ['userAdd'],
     execute(message, args) {
         if (message.author.id === ownerID) {
             try {
