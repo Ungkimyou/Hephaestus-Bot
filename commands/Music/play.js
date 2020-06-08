@@ -100,7 +100,7 @@ module.exports = {
                     })
                     .on('error', error => {
                         console.log(error)
-                        message.channel.send(error.reason)
+                        message.channel.send(error)
                     })
 
                     
