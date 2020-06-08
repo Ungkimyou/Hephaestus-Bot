@@ -6,6 +6,7 @@ const { google } = require('googleapis');
 const getYoutubePlaylistId = require('get-youtube-playlist-id');
 const Youtube = require('simple-youtube-api');
 const youtube = new Youtube(youtubeAPI);
+const youtube = new Youtube(youtubeAPI);
 
 module.exports = {
     name: 'play',
