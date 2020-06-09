@@ -47,8 +47,11 @@ module.exports = {
                                     channel: video.channel.title,
                                     duration: video.duration
                                 };
-
-                                play(song)
+                                try {
+                                    play(song)
+                                } catch (err) {
+                                    console.log(err)
+                                }
                             })
                         })
                 })
@@ -99,8 +102,8 @@ module.exports = {
                         play(queue.songs[0]);
                     })
                     .on('error', error => {
-                        console.log(error)
-                        message.channel.send(error)
+                        console.log("This is the error")
+                        message.channel.send("ERROR Occured")
                     })
 
                     
@@ -146,7 +149,11 @@ module.exports = {
 
                         };
 
-                        play(song);
+                        try {
+                            play(song)
+                        } catch (err) {
+                            console.log(err)
+                        }
 
                     })
 
