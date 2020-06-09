@@ -39,6 +39,7 @@
     "googleapis": "^52.0.0",
     "js": "^0.1.0",
     "node-pre-gyp": "^0.14.0",
+    "puppeteer": "^3.3.0",
     "sequelize": "^5.21.11",
     "sqlite3": "^4.2.0",
     "superagent": "^5.2.2",
