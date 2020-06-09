@@ -52,6 +52,15 @@ for (var command in command_categories) {
 client.once('ready', async () => {
     console.log(`Signed in as: ${client.user.tag}`);
     console.log(`client.config.prefix: ${client.config.prefix}`);
+
+    client.user.setStatus('Available');
+    client.user.setPresence({ activity: { name: "the console logs" } });
+    try {
+        client.user.setPresence({ activity: { type: "WATCHING", name: "the console logs", url: "https://donaldjennings.github.io/Hephaestus-Bot/" } });
+    } catch (err) {
+        console.log(err)
+    }
+    
     //console.log(client.commands)
 });
 
