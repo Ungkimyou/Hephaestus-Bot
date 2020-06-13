@@ -106,7 +106,12 @@ module.exports = {
                         message.channel.send("ERROR Occured")
                     })
 
-                    
+                    .on('disconnect', () => {
+
+                        serverQueue.songs = [];
+                        serverQueue.connection.dispatcher.end('Stop command has been used!');
+
+                    }) 
                     
                 //Sets logarithmic volume
                 dispatcher.setVolumeLogarithmic(queue.volume / 5);
