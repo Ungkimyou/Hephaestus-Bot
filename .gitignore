@@ -3,3 +3,5 @@ google.js
 node_modules
 *.sqlite
 config.json
+
+commands/Admin/

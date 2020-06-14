@@ -6,7 +6,7 @@ module.exports = {
     description: 'Mimicks a new member joining!',
     aliases: ['userAdd'],
     execute(message, args) {
-        if (message.author.id === ownerID) {
+        if (message.author.id === parent.client.config.ownerID) {
             try {
                 parent.client.emit('guildMemberAdd', message.member)
                 console.log("Member Added")

@@ -98,20 +98,42 @@ module.exports = {
 
                     //Once completed it moves the queue array
                     .on('finish', () => {
+
+                        console.log("Queue Finished")
                         queue.songs.shift();
                         play(queue.songs[0]);
                     })
-                    .on('error', error => {
-                        console.log("This is the error")
-                        message.channel.send("ERROR Occured")
-                    })
+
 
                     .on('disconnect', () => {
 
+                        console.log("Disconnecting...")
                         serverQueue.songs = [];
-                        serverQueue.connection.dispatcher.end('Stop command has been used!');
+                        dispatcher.end('Stop command has been used!');
 
                     }) 
+
+                parent.client.on('voiceStateUpdate', async newState => {
+
+                    try {
+
+                        console.log("VOICE STATE UPDATE")
+                        if (!newState.connection) {
+                            console.log("Not connected to a voice channel")
+                            
+                            const serverQueue = message.client.queue.get(message.guild.id);
+                            if (!serverQueue) return
+                            
+                            serverQueue.songs = []
+
+                            dispatcher.end('Stop command has been used!');
+                            console.log("Queue has been cleared because I got disconnected from the voiceChannel")
+                        }
+
+                    } catch (err) {
+                        console.log(err)
+                    }
+                })
                     
                 //Sets logarithmic volume
                 dispatcher.setVolumeLogarithmic(queue.volume / 5);
@@ -134,6 +156,8 @@ module.exports = {
                 return message.channel.send(`I could not join the voice channel: ${error}`);
             }
 
+
+            
 
         };
 
