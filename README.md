@@ -1,10 +1,6 @@
 # 🔥 Hephaestus Bot 🔥
 
 > Harness the power of Hephaestus, a new powerful Discord bot with Music and Moderation Capabilities. Hephaestus is a work-in-progress and is being updated regularly to support exciting new features. If you would like to suggest anything submit it as an issue to this repository
-
-<div style="text-align: center">
-  <img src="src/images/logo.png"/>
-</div>
  
 ![](src/images/logo.png) 
 
