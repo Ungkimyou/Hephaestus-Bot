@@ -4,7 +4,8 @@
 
 ### Hephaestus Discord Server
 
-Click on the above title to join the [Hephaestus Discord](https://discord.gg/7WfSWj)
+Click to join the [Hephaestus Discord](https://discord.gg/7WfSWj) 🎮
+
  
 ![](src/images/logo.png) 
 
