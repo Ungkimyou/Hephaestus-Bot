@@ -2,8 +2,7 @@
 
 > Hephaestus is a newly developed bot for Discord made using the discordJS Library. This is my first bot I have developed so some of the code could be optimised and improved upon.
 
-![](src/images/logo.jpg) 
-[Artwork credit to Luisagiliberti on DeviantArt](https://www.deviantart.com/luisagiliberti)
+![](src/images/logo.png) 
  
 ## Commands List 👾
 
