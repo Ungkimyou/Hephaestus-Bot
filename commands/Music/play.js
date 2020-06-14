@@ -117,7 +117,7 @@ module.exports = {
 
                     try {
 
-                        console.log("VOICE STATE UPDATE")
+                        console.log(`VOICE STATE UPDATED: ${newState.connection.status}`)
                         if (!newState.connection) {
                             console.log("Not connected to a voice channel")
                             
@@ -164,8 +164,6 @@ module.exports = {
         async function searchYoutube(song_string) {
 
             if (urlCheck.test(song_string)) {
-
-                console.log("URL")
                 youtube.getVideo(song_string)
                     .then(video => {
 
@@ -189,8 +187,6 @@ module.exports = {
                     .catch(err => { console.log(err) });
 
             } else {
-
-                console.log("Title")
 
                 //Searches through the YouTube API for video
 
