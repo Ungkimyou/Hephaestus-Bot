@@ -26,7 +26,6 @@ exports.run = async (client) => {
     //Dict storing command categories as defined in the sub-directories of the commands folder
     var command_categories = {
         music: "Music",
-        admin: "Admin",
         moderation: "Moderation",
         general: "General",
     }
