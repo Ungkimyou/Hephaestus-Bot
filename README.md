@@ -1,10 +1,14 @@
 # 🔥 Hephaestus Bot 🔥
 
-> Hephaestus is a newly developed bot for Discord made using the discordJS Library. This is my first bot I have developed so some of the code could be optimised and improved upon.
+> Harness the power of Hephaestus, a new powerful Discord bot with Music and Moderation Capabilities. Hephaestus is a work-in-progress and is being updated regularly to support exciting new features. If you would like to suggest anything submit it as an issue to this repository
 
-![](src/images/logo.jpg) 
-[Artwork credit to Luisagiliberti on DeviantArt](https://www.deviantart.com/luisagiliberti)
+### Hephaestus Discord Server
+
+Click to join the [Hephaestus Discord](https://discord.gg/7WfSWj) 🎮
+
  
+![](src/images/logo.png) 
+
 ## Commands List 👾
 
 | Command        |Description           |Usage  |
@@ -25,6 +29,7 @@
 | resume| Resumes player| !resume |
 | play| Plays song| !play <Title/PlaylistURL/VideoURL> |
 | queue| Displays queue| !queue|
+| next | Adds song to next spot in queue | !next <Title/VideoURL> |
 | shuffle| Shuffles the queue| !shuffle|
 | skip | Skips N songs| !skip <song amount>|
 | stop| Stops the player| !stop|
@@ -41,10 +46,11 @@ Currently the music player is limited to YouTube songs only since the Spotify AP
 This bot has some moderation features. With time will come further updates expanding Hephaestus' capabilities in managing your Discord Server but right now, Hephaestus, has support for kicking and banning aswell as role management.
 
 To use the moderation features you need to __mention__ the user and/or role you wish to operate on
+
 ## Dynamic Implementation of Commands
 The most useful implementation which I have made with Hephaestus is my dynamic commands and their command handler.
 
-As you can see from the directory, their is the main `bot.js` file accompanied by a `commands folder`. Every Javascript file in the commands folder and the subsequent subdirectories are a separate command and the main command handler in the `bot.js` file iterates through these folders adding each command and its name to a map within the `client` class.
+As you can see from the directory, the main `bot.js` file is accompanied by a `commands folder`. Every Javascript file in the commands folder and the subsequent subdirectories are a separate command and the main command handler in the `bot.js` file iterates through these folders adding each command and its name to a map within the `client` class.
 
 ```javascript
 
@@ -81,6 +87,8 @@ The command handler then proceeds on to use a try/catch statement in order to at
 * 1.1
    * RELEASED: Full YouTube Music Player
 * 1.2
+   * RELEASED: Event Handler
+* 1.3
    * TBA
 
 ## Adding more commands
@@ -131,6 +139,6 @@ PREFIX = COMMAND PREFIX
 YOUTUBE_KEY = YOUTUBE_API_KEY
 ```
 ## Information on Dev
-Donald Jennings - [@donald_jenningz](https://twitter.com/donald_jenningz) - donald.jennings2020@gmail.com
+Donald Jennings - [@donald_jenningz](https://twitter.com/donald_jenningz) - donald.jennings2020@gmail.com - DonaldJennings#7915
 
 [https://github.com/DonaldJennings/Hephaestus-Bot](https://github.com/DonaldJennings)
