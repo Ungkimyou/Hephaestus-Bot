@@ -13,7 +13,7 @@ const Client = require('./struct/Client');
 const client = new Client({ token: process.env.TOKEN, prefix: process.env.PREFIX, youtubeKey: process.env.YOUTUBE_KEY , ownerID: process.env.OWNER_ID});
 
 //Initiates the Command and Event Handlers
-fs.readdir('./Handlers', (err, files) => {
+fs.readdir('./Handlers/', (err, files) => {
     if (err) return console.error(err)
 
     files.forEach(file => {
