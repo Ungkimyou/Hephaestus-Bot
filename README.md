@@ -2,9 +2,9 @@
 
 > Harness the power of Hephaestus, a new powerful Discord bot with Music and Moderation Capabilities. Hephaestus is a work-in-progress and is being updated regularly to support exciting new features. If you would like to suggest anything submit it as an issue to this repository
 
-### [Hephaestus Discord] (https://discord.gg/7WfSWj)
+### Hephaestus Discord Server
 
-Click on the above title to join the Hephaestus Developers Discord server
+Click on the above title to join the [Hephaestus Developers Discord server] (https://discord.gg/7WfSWj)
  
 ![](src/images/logo.png) 
 
