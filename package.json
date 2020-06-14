@@ -2,7 +2,7 @@
   "name": "discordbot",
   "version": "1.0.0",
   "description": "a simple discord bot using nodejs",
-  "main": "bot.js",
+  "main": "src/bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node bot.js"
@@ -15,7 +15,14 @@
     "Bot",
     "JavaScript",
     "DiscordAPI",
-    "DiscordJS"
+    "DiscordJS",
+    "Music Bot",
+    "Discord",
+    "Discord Music Bot",
+    "Hephaestus Bot",
+    "Moderation",
+    "Discord Moderation Bot",
+    "DiscordJS Documentation"
   ],
   "author": "Donald Jennings",
   "license": "ISC",
