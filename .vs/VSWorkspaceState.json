@@ -1,7 +1,15 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\commands",
+    "\\commands\\General",
+    "\\commands\\Moderation",
+    "\\commands\\Music",
+    "\\events",
+    "\\Handlers",
+    "\\images",
+    "\\src",
+    "\\struct"
   ],
-  "SelectedNode": "\\struct",
   "PreviewInSolutionExplorer": false
 }
