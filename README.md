@@ -7,7 +7,7 @@
 Click to join the [Hephaestus Discord](https://discord.gg/7WfSWj) 🎮
 
  
-![](src/images/logo.png) 
+![](images/logo.png) 
 
 ## Commands List 👾
 
