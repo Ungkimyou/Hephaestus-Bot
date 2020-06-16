@@ -117,7 +117,7 @@ module.exports = {
 
                     try {
 
-                        if (!newState.connection) {
+                        if (!newState.connection && newState.member.user.bot) {
                             console.log("Not connected to a voice channel")
 
                             var serverQueue = message.client.queue.get(message.guild.id)
@@ -128,7 +128,7 @@ module.exports = {
                             console.log("Queue has been cleared because I got disconnected from the voiceChannel")
                         } else {
 
-                            console.log(`VOICE STATE UPDATED: ${newState.connection.status}`)
+                            //console.log(`VOICE STATE UPDATED: ${newState.connection.status}`)
 
                         }
 
