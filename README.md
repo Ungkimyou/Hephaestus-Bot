@@ -29,6 +29,7 @@ Click to join the [Hephaestus Discord](https://discord.gg/7WfSWj) 🎮
 | resume| Resumes player| !resume |
 | play| Plays song| !play <Title/PlaylistURL/VideoURL> |
 | queue| Displays queue| !queue|
+| lyrics| Displays lyrics | !lyrics <song title><artist> |
 | next | Adds song to next spot in queue | !next <Title/VideoURL> |
 | shuffle| Shuffles the queue| !shuffle|
 | skip | Skips N songs| !skip <song amount>|
@@ -40,6 +41,8 @@ The music playing functionality for Hephaestus requires an interaction between y
 
 The implementation of the music features require access to the Youtube Data API V3.
 
+As of Hephaestus V1.6, a Lyric command has been added. This takes in the arguments of artist and title of song and will send the lyrics of the song to current message channel. Support for interaction with the music player is currently limited as searching Genius using the Video title could sometimes prove ambiguous with the song or Genius couldnt detect the song due to YouTube titles including Official Music Video etc.
+
 Currently the music player is limited to YouTube songs only since the Spotify API and DiscordJS have conflicts when playing spotify songs by their URL. I may add this functionality later by converting playlists to their youtube equivalents.
 
 ## Moderation 🔨
@@ -50,7 +53,9 @@ To use the moderation features you need to __mention__ the user and/or role you 
 ## Dynamic Implementation of Commands
 The most useful implementation which I have made with Hephaestus is my dynamic commands and their command handler.
 
-As you can see from the directory, the main `bot.js` file is accompanied by a `commands folder`. Every Javascript file in the commands folder and the subsequent subdirectories are a separate command and the main command handler in the `bot.js` file iterates through these folders adding each command and its name to a map within the `client` class.
+As you can see from the directory, the main `bot.js` file is accompanied by a `commands folder`. Every Javascript file in the commands folder and the subsequent subdirectories are a separate command and the main command handler in the `Handlers/CommandHandler.js` file iterates through these folders adding each command and its name to a map within the `client` class.
+
+The additions of seperate handlers for Commands and Events has made Hephaestus a more maintainable and easier to understand bot as the number of lines per file is minimal. Furthermore this has aided in the development as I can instantly identify where errors are coming up.
 
 ```javascript
 
@@ -86,11 +91,13 @@ The command handler then proceeds on to use a try/catch statement in order to at
    * RELEASED: Music Player BETA and Basic Moderation
 * 1.1
    * RELEASED: Full YouTube Music Player
-* 1.2
+* 1.5
    * RELEASED: Event Handler
-* 1.3
+* 1.6
+   * RELEASED: Lyrics Command
+* 2.0
    * TBA
-
+   
 ## Adding more commands
 Before adding more commands, I recommend you read through the [DiscordJS Documentation](https://discord.js.org/#/docs/main/stable/general/welcome) and the [DiscordJS Dev Guide](https://discordjs.guide/#before-you-begin).
 
@@ -110,7 +117,7 @@ module.exports = {
 ```
 
 Once you have created the js file as shown above you can start developing your desired command. 
-Below is a fully worked example using the above template for the `d!ping` command.
+Below is a fully worked example using the above template for the `!ping` command.
 
 ```javascript
 const Discord = require('discord.js');
@@ -130,13 +137,14 @@ module.exports = {
 
 ## Adding Hephaestus to your bot
 
-Adding Hephaestus to your own bot is simple. For privacy and security reasons, I have not uploaded the `config.json` file along with some other files. 
+Adding Hephaestus to your own bot is simple. For privacy and security reasons, I have not uploaded the `.env` file along with some other files. 
 Simply create a `.env` and structure it as follows
 ```
 TOKEN = YOUR_BOT_TOKEN
 OWNER_ID = YOUR_USER_ID
 PREFIX = COMMAND PREFIX
 YOUTUBE_KEY = YOUTUBE_API_KEY
+GENIUS_KEY = YOUR_GENIUS_ACCESS_TOKEN
 ```
 ## Information on Dev
 Donald Jennings - [@donald_jenningz](https://twitter.com/donald_jenningz) - donald.jennings2020@gmail.com - DonaldJennings#7915
