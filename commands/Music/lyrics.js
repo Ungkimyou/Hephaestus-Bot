@@ -7,8 +7,10 @@ const genius = new Genius(process.env.GENIUS_KEY)
 const colours = require('../../colours.json')
 module.exports = {
     name: 'lyrics',
-    description: 'Displays lyrics of currently playing/searched song.',
+    description: 'Displays lyrics of searched song.',
     cooldown: 5,
+    aliases: ['lyr'],
+    usage: 
     execute(message, args) {
 
         //Function to search the Genius API and grab the first song
@@ -19,10 +21,8 @@ module.exports = {
 
                     song = response.hits[0].result
 
-                    console.log(genius_song_info)
                     genius.getSongLyrics(song.url)
 
-                    return (genius_song_info)
 
                 })
         }
