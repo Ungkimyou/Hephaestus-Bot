@@ -11,7 +11,7 @@ module.exports = {
     description: 'Displays lyrics of searched song.',
     cooldown: 5,
     aliases: ['lyr'],
-    usage: 'Video Title & Artist Name' 
+    usage: 'Video Title & Artist Name' ,
     execute(message, args) {
 
         //Function to search the Genius API and grab the first song
