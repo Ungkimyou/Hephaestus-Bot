@@ -5,12 +5,13 @@ const fetch = require('node-fetch')
 const {MessageEmbed} = require('discord.js')
 const genius = new Genius(process.env.GENIUS_KEY)
 const colours = require('../../colours.json')
+
 module.exports = {
     name: 'lyrics',
     description: 'Displays lyrics of searched song.',
     cooldown: 5,
     aliases: ['lyr'],
-    usage: 
+    usage: 'Video Title & Artist Name' 
     execute(message, args) {
 
         //Function to search the Genius API and grab the first song
