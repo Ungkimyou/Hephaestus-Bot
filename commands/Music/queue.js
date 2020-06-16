@@ -42,6 +42,8 @@ module.exports = {
 
         const serverQueue = message.client.queue.get(message.guild.id);
 
+        console.log(!serverQueue)
+
         if (!serverQueue) return message.channel.send('There is nothing playing.');
         queue_embed= queue_to_text(serverQueue)
         message.channel.send(queue_embed)

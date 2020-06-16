@@ -98,20 +98,20 @@ module.exports = {
 
                     //Once completed it moves the queue array
                     .on('finish', () => {
-
-                        console.log("Queue Finished")
                         queue.songs.shift();
                         play(queue.songs[0]);
+                        
                     })
 
 
                     .on('disconnect', () => {
 
                         console.log("Disconnecting...")
-                        serverQueue.songs = [];
+                        queue.songs = [];
                         dispatcher.end('Stop command has been used!');
 
-                    }) 
+                    })
+
 
                 parent.client.on('voiceStateUpdate', async newState => {
 
@@ -120,12 +120,11 @@ module.exports = {
                         if (!newState.connection) {
                             console.log("Not connected to a voice channel")
 
-                            const serverQueue = message.client.queue.get(message.guild.id);
-                            if (!serverQueue) return
+                            var serverQueue = message.client.queue.get(message.guild.id)
+                            if (!serverQueue) return console.log("No songs in Queue")
 
                             serverQueue.songs = []
-
-                            dispatcher.end('Stop command has been used!');
+                            dispatcher.end();
                             console.log("Queue has been cleared because I got disconnected from the voiceChannel")
                         } else {
 
