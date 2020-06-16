@@ -117,17 +117,20 @@ module.exports = {
 
                     try {
 
-                        console.log(`VOICE STATE UPDATED: ${newState.connection.status}`)
                         if (!newState.connection) {
                             console.log("Not connected to a voice channel")
-                            
+
                             const serverQueue = message.client.queue.get(message.guild.id);
                             if (!serverQueue) return
-                            
+
                             serverQueue.songs = []
 
                             dispatcher.end('Stop command has been used!');
                             console.log("Queue has been cleared because I got disconnected from the voiceChannel")
+                        } else {
+
+                            console.log(`VOICE STATE UPDATED: ${newState.connection.status}`)
+
                         }
 
                     } catch (err) {
