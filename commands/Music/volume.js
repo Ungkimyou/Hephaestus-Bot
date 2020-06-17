@@ -2,7 +2,7 @@ module.exports = {
     name: 'volume',
     description: 'Adjusts player volume.',
     cooldown: 5,
-    aliases: ['volume', 'vol']
+    aliases: ['volume', 'vol'],
     execute(message, args) {
 
 
@@ -28,7 +28,7 @@ module.exports = {
 
             } else {
 
-                return message.channel.send("Volume command only accepts positive/neutral Numerical input ")
+                return message.channel.send("Volume command only accepts positive/neutral Numerical input...Also hey matthew ")
 
             }
             
