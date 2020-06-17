@@ -11,7 +11,7 @@ module.exports = {
 
             var volInt = parseInt(volString, 10)
 
-            if (!isNaN(volInt)) {
+            if (!isNaN(volInt) && volInt >= 0) {
 
                 if (volInt > 999) return message.channel.send("Volume cannot be set above 999")
                 console.log(`volInt: ${volInt}`)
@@ -27,7 +27,7 @@ module.exports = {
 
             } else {
 
-                return message.channel.send("Volume command only accepts Numerical input")
+                return message.channel.send("Volume command only accepts positive/neutral Numerical input ")
 
             }
             
