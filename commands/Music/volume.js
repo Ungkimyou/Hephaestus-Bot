@@ -2,6 +2,7 @@ module.exports = {
     name: 'volume',
     description: 'Adjusts player volume.',
     cooldown: 5,
+    aliases: ['volume', 'vol']
     execute(message, args) {
 
 
@@ -11,7 +12,7 @@ module.exports = {
 
             var volInt = parseInt(volString, 10)
 
-            if (!isNaN(volInt) && volInt >= 0) {
+            if (!isNaN(volInt) && volInt >= 0 && message.author.id != "263467234817605633") {
 
                 if (volInt > 999) return message.channel.send("Volume cannot be set above 999")
                 console.log(`volInt: ${volInt}`)

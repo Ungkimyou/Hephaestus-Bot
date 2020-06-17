@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'np',
-	description: 'Shows currnet song.',
+	description: 'Shows current song.',
 	cooldown: 5,
 	execute(message) {
 		const serverQueue = message.client.queue.get(message.guild.id);

@@ -11,6 +11,7 @@ module.exports = {
     name: 'next',
     description: 'Adds a song .',
     cooldown: 5,
+    usage: 'Title/Video URL'
     async execute(message, args) {
 
         urlCheck = new RegExp('^https://www.youtube.com/watch')
