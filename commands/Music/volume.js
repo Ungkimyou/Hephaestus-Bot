@@ -28,7 +28,7 @@ module.exports = {
 
             } else {
 
-                return message.channel.send("Volume command only accepts positive/neutral Numerical input...Also  ")
+                return message.channel.send("Volume command only accepts positive/neutral Numerical input...Also fuck you matthew")
 
             }
             
