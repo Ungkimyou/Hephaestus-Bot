@@ -15,9 +15,11 @@ module.exports = {
 
             const whitelist = ["287623568609640451", "371309967342436356", "273878953356296194", "161587365171822592"]
 
+            var isWhitelisted = whitelist.includes(message.author.id)
+
             if (!isNaN(volInt) && volInt >= 0) {
 
-                if (message.author.id in whitelist) {
+                if (isWhitelisted) {
 
                     if (volInt > 999) return message.channel.send("Volume cannot be set above 999")
                     console.log(`volInt: ${volInt}`)
