@@ -48,7 +48,7 @@ module.exports = {
                                     duration: video.duration
                                 };
                                 try {
-                                    play(song)
+                                    play(song, true)
                                 } catch (err) {
                                     console.log(err)
                                 }
@@ -57,7 +57,7 @@ module.exports = {
                 })
         }
 
-        async function play(song) {
+        async function play(song, isPlaylist) {
 
 
             //Creates server queue
@@ -83,6 +83,12 @@ module.exports = {
             //Sets queue variable within the client class
             message.client.queue.set(message.guild.id, queueConstruct);
             queueConstruct.songs.push(song);
+            if (isPlaylist) {
+                message.channel.send("** Playlist ** has been added to the queue")
+            } else {
+
+                message.channel.send(`** ${song.title} ** has been added to the queue`)
+            }
 
             //Play
             const play = async song => {
@@ -179,7 +185,7 @@ module.exports = {
                         };
 
                         try {
-                            play(song)
+                            play(song,false)
                         } catch (err) {
                             console.log(err)
                         }
@@ -203,7 +209,7 @@ module.exports = {
                             channel: result.channel.title,
                         }
 
-                        play(song)
+                        play(song,false)
 
                     })
                     .catch(err => {
