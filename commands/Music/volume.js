@@ -12,19 +12,31 @@ module.exports = {
 
             var volInt = parseInt(volString, 10)
 
-            if (!isNaN(volInt) && volInt >= 0 && message.author.id != "263467234817605633" && message.author.id != "415211139522232320") {
 
-                if (volInt > 999) return message.channel.send("Volume cannot be set above 999")
-                console.log(`volInt: ${volInt}`)
-                const { channel } = message.member.voice;
-                if (!channel) return message.channel.send('I\'m sorry but you need to be in a voice channel to play music!');
-                const serverQueue = message.client.queue.get(message.guild.id);
-                if (!serverQueue) return message.channel.send('There is nothing playing.');
-                oldVolume = serverQueue.volume
-                if (!args[0]) return message.channel.send(`The current volume is: **${serverQueue.volume}**`);
-                serverQueue.volume = volInt; // eslint-disable-line
-                serverQueue.connection.dispatcher.setVolumeLogarithmic(volInt / 5);
-                return message.channel.send(`Volume has been set from **${oldVolume}** to: **${volInt}**`);
+            const whitelist = ["287623568609640451", "371309967342436356", "273878953356296194", "161587365171822592"]
+
+            if (!isNaN(volInt) && volInt >= 0) {
+
+                if (message.author.id in whitelist) {
+
+                    if (volInt > 999) return message.channel.send("Volume cannot be set above 999")
+                    console.log(`volInt: ${volInt}`)
+                    const { channel } = message.member.voice;
+                    if (!channel) return message.channel.send('I\'m sorry but you need to be in a voice channel to play music!');
+                    const serverQueue = message.client.queue.get(message.guild.id);
+                    if (!serverQueue) return message.channel.send('There is nothing playing.');
+                    oldVolume = serverQueue.volume
+                    if (!args[0]) return message.channel.send(`The current volume is: **${serverQueue.volume}**`);
+                    serverQueue.volume = volInt; // eslint-disable-line
+                    serverQueue.connection.dispatcher.setVolumeLogarithmic(volInt / 5);
+                    return message.channel.send(`Volume has been set from **${oldVolume}** to: **${volInt}**`);
+
+                } else {
+
+                    return message.channel.send(" You need to be a Hephaestus Premium member to use this feature. Please contact your Server Admin for more info ")
+
+                }
+                
 
             } else {
 
