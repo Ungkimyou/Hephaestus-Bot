@@ -66,6 +66,7 @@ module.exports = {
             //If a queue exists then add the song to the end of the queue
             if (serverQueue) {
                 serverQueue.songs.push(song);
+                if(!isPlaylist) message.channel.send(`** ${song.title} ** has been added to the queue`)
                 console.log(serverQueue.songs);
                 return
             }
@@ -86,7 +87,6 @@ module.exports = {
             if (isPlaylist) {
                 message.channel.send("** Playlist ** has been added to the queue")
             } else {
-
                 message.channel.send(`** ${song.title} ** has been added to the queue`)
             }
 
