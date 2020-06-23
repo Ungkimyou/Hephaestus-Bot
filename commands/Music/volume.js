@@ -17,7 +17,7 @@ module.exports = {
 
             var isWhitelisted = whitelist.includes(message.author.id)
 
-            if (!isNaN(volInt) && volInt >= 0) {
+            if (!isNaN(volInt) && volInt >= 5) {
 
                 if (isWhitelisted) {
 
